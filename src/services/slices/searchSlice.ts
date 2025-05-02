@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type TMovie = {
-   id: number;
-   title: string;
-   poster_path: string | null;
-   release_date: string;
-   vote_average: number;
+  imdbID: string;
+  Title: string;
+  Year: string;
+  Poster: string;
+  Type: string;
 }
 
 type TSeachFormState = {
@@ -25,13 +25,16 @@ const initialState: TSeachFormState = {
 export const searchMovies = createAsyncThunk<{ results: TMovie[] }, string, { rejectValue: string }>(
   "search/Movies",
   async (query: string, { rejectWithValue }) => {
-    const apiKey = process.env.REACT_APP_API_KEY;
-    const BASE_URL = 'https://api.themoviedb.org/3';
+    const apiKey = import.meta.env.VITE_OMDB_API_KEY;
+    const BASE_URL = 'http://www.omdbapi.com';
+    console.log(apiKey);
+    console.log(query);
+    if (!apiKey) throw new Error('Api key is missing');
     try {
-      const response = await fetch(`${BASE_URL}/search/movie?api_key=${apiKey}&query=${encodeURIComponent(query)}`);
-      
+      const response = await fetch(`${BASE_URL}/?apikey=${apiKey}&s=${encodeURIComponent(query)}&type=movie`);
+      console.log(response);
       if (!response.ok) {
-        throw new Error('Server error!');
+        throw new Error(`Не удалось получить данные: ${response.status}`);
       }
       return await response.json();
     } catch (error) {
@@ -50,10 +53,12 @@ const searchSlice = createSlice({
           state.status = 'loading';
           state.error = null;
           state.query = action.meta.arg;
+          state.movies = [];
         })
         .addCase(searchMovies.rejected, (state, action) => {
           state.status = 'error';
           state.error = action.payload || action.error.message || 'Неизвестная ошибка';
+          state.movies = [];
         })
         .addCase(searchMovies.fulfilled, (state, action) => {
           state.status = 'idle';

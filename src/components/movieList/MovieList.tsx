@@ -16,7 +16,7 @@ export const MovieList: FC = () => {
     return <div className="text-center p-4 text-red-600">{error}</div>;
   }
 
-  if (movies.length === 0 && query) {
+  if (!movies || movies.length === 0 && query) {
     return (
       <div className="text-center p-4">
         {" "}
@@ -26,16 +26,16 @@ export const MovieList: FC = () => {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {movies.map((movie) => (
         <div
-          key={movie.id}
+          key={movie.imdbID}
           className="bg-white rounded shadow p-4 flex flex-col items-center"
         >
-          {movie.poster_path ? (
+          {movie.Poster !== 'N/A' ? (
             <img
-              src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-              alt={movie.title}
+              src={movie.Poster}
+              alt={movie.Title}
               className="w-full h-48 object-cover rounded"
             />
           ) : (
@@ -43,9 +43,8 @@ export const MovieList: FC = () => {
               Постер отсутствует
             </div>
           )}
-          <h3 className="mt-2 text-lg font-semibold">{movie.title}</h3>
-          <p className="text-gray-600">{movie.release_date.split('-'[0])}</p>
-          <p className="text-yellow-400">{movie.vote_average.toFixed(1)}</p>
+          <h3 className="mt-2 text-lg font-semibold">{movie.Title}</h3>
+          <p className="text-gray-600">{movie.Year || 'N/A'}</p>
       </div>
       ))}
     </div>
