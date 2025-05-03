@@ -5,11 +5,13 @@ import {MovieList} from './components/movieList/MovieList'
 
 function App() {
   return (
-    <>
+    <div className='min-h-screen bg-gray-900'>
     <Header/>
-    <SearchForm/>
-    <MovieList/>
-    </>
+    <main className='container mx-auto'>
+      <SearchForm/>
+      <MovieList/>
+    </main>
+    </div>
   )
 }
 

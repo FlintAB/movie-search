@@ -9,17 +9,17 @@ type TMovie = {
 }
 
 type TSeachFormState = {
-   movies: TMovie[];
-   status: 'idle' | 'loading' | 'error';
-   error: string | null;
-   query: string;
+  movies: TMovie[];
+  status: 'idle' | 'loading' | 'error';
+  error: string | null;
+  query: string;
 };
 
 const initialState: TSeachFormState = {
-   movies: [],
-   status: 'idle',
-   error: null,
-   query: '',
+  movies: [],
+  status: 'idle',
+  error: null,
+  query: '',
 };
 
 export const searchMovies = createAsyncThunk<{ Search: TMovie[] }, string, { rejectValue: string }>(

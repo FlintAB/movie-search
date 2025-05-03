@@ -23,9 +23,9 @@ export const SearchForm: FC = () => {
    }
 
    return (
-      <form onSubmit={handleSubmit} className="flex gap-2 p-4 max-w-md mx-auto">
-      <input name="searchFilmField" type="text" placeholder="Введите название фильма" value={query} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded border border-gray-500 focus:outline focus:border-blue-800"/>
-      <button type="submit" disabled={!query.trim() || status === 'loading'} className={`text-white px-4 py-2 rounded ${!query.trim() || status === 'loading' ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`} >Search</button>
+      <form onSubmit={handleSubmit} className="flex gap-2 p-4 max-w-md mx-auto bg-gray-800 rounded-lg">
+      <input name="searchFilmField" type="text" placeholder="Введите название фильма (eng)" value={query} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-red-500"/>
+      <button type="submit" disabled={!query.trim() || status === 'loading'} className={`text-white px-4 py-2 rounded ${!query.trim() || status === 'loading' ? 'bg-gray-600 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}`} >Search</button>
       </form>
    );
 };
