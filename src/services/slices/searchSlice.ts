@@ -26,7 +26,7 @@ export const searchMovies = createAsyncThunk<{ Search: TMovie[] }, string, { rej
   "search/Movies",
   async (query: string, { rejectWithValue }) => {
     const apiKey = import.meta.env.VITE_OMDB_API_KEY;
-    const BASE_URL = 'http://www.omdbapi.com';
+    const BASE_URL = 'https://www.omdbapi.com';
     console.log(apiKey);
     console.log(query);
     if (!apiKey) throw new Error('Api key is missing');
