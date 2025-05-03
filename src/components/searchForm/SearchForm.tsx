@@ -7,24 +7,25 @@ import { useSelector } from "react-redux";
 
 
 export const SearchForm: FC = () => {
-   const [value, setValue] = useState('');
+   const [query, setQuery] = useState('');
    const {status} = useSelector((state: RootState) => state.search)
    const dispatch = useAppDispatch();
 
    function handleSubmit (e: React.FormEvent) {
       e.preventDefault();
-      if (value.trim()) {
-         dispatch(searchMovies(value))
+      if (query.trim()) {
+         console.log(query);
+         dispatch(searchMovies(query));
       }
    };
    function handleChange (e: React.ChangeEvent<HTMLInputElement>){
-      setValue(e.target.value);
+      setQuery(e.target.value);
    }
 
    return (
       <form onSubmit={handleSubmit} className="flex gap-2 p-4 max-w-md mx-auto">
-      <input name="searchFilmField" type="text" placeholder="Введите название фильма" value={value} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded border border-gray-500 focus:outline focus:border-blue-800"/>
-      <button type="submit" disabled={!value.trim() || status === 'loading'} className={`text-white px-4 py-2 rounded ${!value.trim() || status === 'loading' ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`} >Search</button>
+      <input name="searchFilmField" type="text" placeholder="Введите название фильма" value={query} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded border border-gray-500 focus:outline focus:border-blue-800"/>
+      <button type="submit" disabled={!query.trim() || status === 'loading'} className={`text-white px-4 py-2 rounded ${!query.trim() || status === 'loading' ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`} >Search</button>
       </form>
    );
 };

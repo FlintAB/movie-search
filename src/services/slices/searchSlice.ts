@@ -22,7 +22,7 @@ const initialState: TSeachFormState = {
    query: '',
 };
 
-export const searchMovies = createAsyncThunk<{ results: TMovie[] }, string, { rejectValue: string }>(
+export const searchMovies = createAsyncThunk<{ Search: TMovie[] }, string, { rejectValue: string }>(
   "search/Movies",
   async (query: string, { rejectWithValue }) => {
     const apiKey = import.meta.env.VITE_OMDB_API_KEY;
@@ -36,7 +36,9 @@ export const searchMovies = createAsyncThunk<{ results: TMovie[] }, string, { re
       if (!response.ok) {
         throw new Error(`Не удалось получить данные: ${response.status}`);
       }
-      return await response.json();
+      const data = await response.json();
+      console.log('API Response:', data);
+      return data || [];
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : 'Unknown error');
     }
@@ -62,7 +64,7 @@ const searchSlice = createSlice({
         })
         .addCase(searchMovies.fulfilled, (state, action) => {
           state.status = 'idle';
-          state.movies = action.payload.results;
+          state.movies = action.payload.Search || [];
         });
     }
 });

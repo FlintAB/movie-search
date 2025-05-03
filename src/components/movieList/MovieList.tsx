@@ -7,14 +7,16 @@ export const MovieList: FC = () => {
   const { movies, status, error, query } = useSelector(
     (state: RootState) => state.search
   );
+  console.log('Состояние компонента MovieList:', {movies, status, error, query});
 
   if (status === "loading") {
     return <div className="text-center p-4">Загрузка...</div>;
-  }
+  };
 
   if (status === "error") {
+    console.log('Redux error:', error)
     return <div className="text-center p-4 text-red-600">{error}</div>;
-  }
+  };
 
   if (!movies || movies.length === 0 && query) {
     return (
@@ -23,7 +25,7 @@ export const MovieList: FC = () => {
         Не найдено фильмов по запросу '{query}'
       </div>
     );
-  }
+  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
