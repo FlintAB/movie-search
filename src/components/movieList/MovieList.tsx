@@ -2,6 +2,8 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../services/store";
 import {motion} from 'framer-motion';
+import {Loader} from '../loader/loader';
+import {Error} from '../error/Error';
 
 
 export const MovieList: FC = () => {
@@ -11,12 +13,12 @@ export const MovieList: FC = () => {
   console.log('Состояние компонента MovieList:', {movies, status, error, query});
 
   if (status === "loading") {
-    return <div className="text-center p-4 text-red-600">Загрузка...</div>;
+    return <Loader/>;
   };
 
   if (status === "error") {
     console.log('Redux error:', error)
-    return <div className="text-center p-4 text-red-600">{error}</div>;
+    return <Error message={error}/>;
   };
 
   if (!movies || movies.length === 0 && query) {
