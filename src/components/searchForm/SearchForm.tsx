@@ -29,7 +29,7 @@ export const SearchForm: FC = () => {
 
    return (
       <form onSubmit={handleSubmit} className="flex gap-2 p-4 max-w-md mx-auto bg-gray-800 rounded-lg">
-      <input name="searchFilmField" type="text" placeholder="Введите название фильма (eng)" value={query} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-red-500"/>
+      <input name="searchFilmField" type="text" placeholder="Поиск фильмов (eng)" value={query} onChange={handleChange} disabled={status === 'loading'} className="flex-1 p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-red-500"/>
       <button type="submit" disabled={!query.trim() || status === 'loading'} className={`text-white px-4 py-2 rounded ${!query.trim() || status === 'loading' ? 'bg-gray-600 cursor-not-allowed' : 'bg-red-600 hover:blue-700'}`} >Search</button>
       </form>
    );
