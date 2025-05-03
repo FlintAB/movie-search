@@ -7,7 +7,7 @@ function App() {
   return (
     <div className='min-h-screen bg-gray-900'>
     <Header/>
-    <main className='container mx-auto'>
+    <main className='container mx-auto m-4'>
       <SearchForm/>
       <MovieList/>
     </main>
